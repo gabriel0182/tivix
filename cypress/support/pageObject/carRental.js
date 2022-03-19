@@ -1,12 +1,12 @@
 var format = require('date-format')
+const date = new Date()
+const tomorrow = new Date(date)
+tomorrow.setDate(tomorrow.getDate() + 3)
+const year = date.getUTCFullYear()
+const pickDate = format('yyyy-MM-dd', new Date())
+const dropoff = format('yyyy-MM-dd', tomorrow)
 class carRental {
 	static searchCarInfo() {
-		const date = new Date()
-		const tomorrow = new Date(date)
-		tomorrow.setDate(tomorrow.getDate() + 3)
-		const year = date.getUTCFullYear()
-		const pickDate = format('yyyy-MM-dd', new Date())
-		const dropoff = format('yyyy-MM-dd', tomorrow)
 		cy.fixture('../fixtures/search.json').then((info) => {
 			cy.get('#search_form').within(() => {
 				cy.get('#country')
@@ -33,6 +33,25 @@ class carRental {
 				const text = $val.text()
 				cy.get('tbody tr').find('td:nth-child(2)').should('have.text', text)
 			})
+	}
+	static selectCarFromTheList() {
+		cy.get('#search-results')
+			.get('tbody tr')
+			.eq(1)
+			.find('td:nth-child(2)')
+			.then(($val) => {
+				const text = $val.text()
+				cy.contains(text).parent('tr').contains('Rent').click()
+			})
+	}
+	static validateCarInfo() {
+		cy.fixture('../fixtures/search.json').then((info) => {
+			cy.get('.card-body').within(() => {
+				cy.get('.card-text').eq(1).should('contain.text', `Location: ${info.country}, ${info.city}`)
+				cy.get('h6').eq(0).should('contain.text', ` Pickup date: ${pickDate}`)
+				cy.get('h6').eq(1).should('contain.text', ` Dropoff date: ${dropoff}`)
+			})
+		})
 	}
 }
 

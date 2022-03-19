@@ -1,5 +1,5 @@
 {
-	"testFiles": ["**/searchCar.feature"],
+	"testFiles": ["**/searchCar.feature", "**/seeCarDetails.feature"],
 	"blockHosts": ["www.google-analytics.com"],
 	"viewportWidth": 1480,
 	"viewportHeight": 980,
