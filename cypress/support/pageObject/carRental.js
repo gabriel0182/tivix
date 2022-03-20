@@ -53,6 +53,38 @@ class carRental {
 			})
 		})
 	}
+	static clickOnRentButton() {
+		cy.get('#content')
+			.within(() => {
+				cy.get('.btn-primary')
+			})
+			.then(($btn) => {
+				if ($btn.text().includes('Rent!')) {
+					cy.get('.btn-primary').contains('Rent!').click()
+				} else if ($btn.text().includes('Rent')) {
+					cy.get('.btn-primary').contains('Rent').click()
+				}
+			})
+	}
+	static typeRentalInfo() {
+		cy.fixture('../fixtures/customer.json').then((info) => {
+			cy.get('#content').within(() => {
+				cy.get('#name').clear().type(info.name)
+				cy.get('#last_name').clear().type(info.lastName)
+				cy.get('#card_number').clear().type(info.cardNumber)
+				cy.get('#email').clear().type(info.email)
+			})
+		})
+	}
+	static validateSuccessRental() {
+		cy.get('body').then(($body) => {
+			if ($body.text().includes('Page not found (404)')) {
+				cy.log('Test Failed')
+			} else if ($btn.text().includes('Car Rental Success')) {
+				cy.log('Test Success')
+			}
+		})
+	}
 }
 
 export default carRental
