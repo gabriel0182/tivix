@@ -1,7 +1,7 @@
 import carRental from '../../support/pageObject/carRental'
 
 Given('I am viewing the main page', () => {
-	cy.openMainPage()
+	carRental.verifyMainPage()
 })
 
 When('I type the required search info', () => {
@@ -24,5 +24,8 @@ And('I click on Rent button', () => {
 	carRental.clickOnRentButton()
 })
 Then('I should a success rental confirmation message', () => {
+	//At the moment of rent the page is getting a 404 error,
+	//so the test is validating the error is shown and printing in the
+	//console "Test Failed"
 	carRental.validateSuccessRental()
 })

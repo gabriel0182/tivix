@@ -6,6 +6,9 @@ const year = date.getUTCFullYear()
 const pickDate = format('yyyy-MM-dd', new Date())
 const dropoff = format('yyyy-MM-dd', tomorrow)
 class carRental {
+	static verifyMainPage() {
+		cy.get('title').should('contain', 'Car rent')
+	}
 	static searchCarInfo() {
 		cy.fixture('../fixtures/search.json').then((info) => {
 			cy.get('#search_form').within(() => {

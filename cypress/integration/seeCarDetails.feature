@@ -1,5 +1,7 @@
 Feature: See car detailed car info
 
+    @openMainPage
+
     Scenario: Search for a car to Rent and see the detailed info
         Given I am viewing the main page
         When I type the required search info

@@ -1,4 +1,5 @@
 Feature: Search for a car to Rent
+    @openMainPage
 
     Scenario: Search for a car to Rent and validate the results
         Given I am viewing the main page
